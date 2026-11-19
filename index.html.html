@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hirara — Private & Live</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #191216;
+      --bg-soft: #141113;
+      --card: #1a1618;
+      --border: rgba(232, 180, 184, 0.18);
+      --rose: #e8b4b8;
+      --rose-soft: #f5d0d3;
+      --gold: #d4af7a;
+      --gold-soft: #e8d5b5;
+      --text: #f4ecec;
+      --text-muted: #b8a8a8;
+      --accent: #c97b84;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* subtle grain */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(201, 123, 132, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(212, 175, 122, 0.06) 0%, transparent 50%),
+        var(--bg);
+    }
+
+    .hero-ornament {
+      width: 48px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 9vw, 5.2rem);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--rose-soft);
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+
+    .hero .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+
+    .hero p {
+      max-width: 420px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    .hero-cta {
+      margin-top: 42px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #a85d66);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(201, 123, 132, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(201, 123, 132, 0.35);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--rose);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--rose);
+      background: rgba(232, 180, 184, 0.06);
+    }
+
+    /* ========== SECTIONS ========== */
+    section {
+      padding: 72px 0;
+    }
+
+    .section-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.9rem, 4vw, 2.5rem);
+      font-weight: 500;
+      color: var(--rose-soft);
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 48px;
+      opacity: 0.6;
+    }
+
+    /* ========== ABOUT ========== */
+    .about {
+      background: var(--bg-soft);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    @media (max-width: 720px) {
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+
+    .about-photo {
+      aspect-ratio: 3/4;
+      background:
+        linear-gradient(160deg, rgba(201,123,132,0.15), transparent 50%),
+        linear-gradient(20deg, rgba(212,175,122,0.1), transparent 40%),
+        var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-photo::after {
+      content: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+    }
+
+    .about-text .highlight {
+      color: var(--rose-soft);
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+    }
+
+    /* ========== TOYS ========== */
+    .toys-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      justify-content: center;
+      align-items: stretch;
+      gap: 20px;
+    }
+
+    @media (max-width: 720px) {
+      .toys-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 500px) {
+      .toys-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .toy-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px 22px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .toy-card:hover {
+      border-color: rgba(232, 180, 184, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+    }
+
+    .toy-icon {
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+      opacity: 0.9;
+    }
+
+    .toy-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--rose-soft);
+      margin-bottom: 8px;
+    }
+
+    .toy-card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ========== SHOWS ========== */
+    .shows-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .show-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 20px;
+      align-items: start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 22px 24px;
+      transition: border-color 0.25s;
+    }
+
+    .show-item:hover {
+      border-color: rgba(232, 180, 184, 0.35);
+    }
+
+    .show-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      color: var(--gold);
+      font-weight: 500;
+      text-align: center;
+      padding-top: 2px;
+    }
+
+    .show-price span {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .show-item h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--rose-soft);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .show-item p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* ========== RULES ========== */
+    .rules {
+      background: var(--bg-soft);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .rules-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .rule-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 24px;
+    }
+
+    .rule-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--gold);
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .rule-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ========== SPECIAL ========== */
+    .special-box {
+      background: linear-gradient(135deg, rgba(201,123,132,0.12), rgba(212,175,122,0.08));
+      border: 1px solid rgba(232, 180, 184, 0.25);
+      border-radius: 4px;
+      padding: 36px 32px;
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    .special-box h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--rose-soft);
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .special-box p {
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 20px;
+      font-size: 0.95rem;
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      padding: 48px 0 36px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    footer .name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--rose);
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-ornament {
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+      margin: 20px auto;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-ornament"></div>
+    <h1>Hirara</h1>
+    <p class="tagline">Cute · Naughty · Yours</p>
+    <p>
+      I’d love to get to know you better – I love trying new things and laugh! I hope we’ll have fun together; I can’t wait for it to start!!! ^^
+    </p>
+    <div class="hero-cta">
+      <a href="#shows" class="btn btn-primary">View Shows</a>
+      <a href="#toys" class="btn btn-ghost">My toys</a>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-photo">
+          <img src=imagenpagina.jpeg>
+          <!-- Reemplaza este div con tu foto -->
+        </div>
+        <div class="about-text">
+          <span class="section-label">a bit about me!</span>
+          <h2 class="section-title">I'm Hirara-the reason you won't sleep tonight.</h2>
+          <p class="highlight">
+            “I had a dream about you last night-come over and I'll show you.”
+          </p>
+          <p>
+            I’m playful, curious and I like to experimenting    with you.
+          </p>
+          <p>
+            I love to be naughty and tease you, but I also love to be sweet and playful. I want to make you feel good and have fun with you. <br> I’m open to new experiences and I love to explore your fantasies. <br> So don’t be shy, come say hi and let’s have some fun together!
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOYS -->
+  <section id="toys">
+    <div class="container">
+      <div style="text-align: center;">
+        <span class="section-label">Collection</span>
+        <h2 class="section-title">My Toys!</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="toys-grid">
+        <div class="toy-card">
+          <div class="toy-icon">♡</div>
+          <h3>Lovense Lush, Domi, Nora, Fuck Machine</h3>
+          <p>Live interactive control. Feel every tap… and so do I. <br> These are some toys I love using on myself... and that you can ask me to play during my shows. <br> All these toys are extras in privates shows except for a little surprise :P </p>
+        </div>
+        <div class="toy-card">
+          <div class="toy-icon">✦</div>
+          <h3>My vaginal toy collection!</h3>
+          <p>-Realistic dildos in different sizes~ <br>
+-Big thick black dildo <br>
+-Black dildo with strong thrusting and vibration <br>
+-Soft realistic torso <br>
+-Three thick fantasy dildos <br>
+-Blue dragon dildo <br>
+-Eggplant dildo <br>
+-Mini tentacle & big tentacle dildo <br>
+-Bunny ears clit stimulator <br>
+-Clit sucker <br></p>
+        </div>
+        <div class="toy-card">
+          <div class="toy-icon">✧</div>
+          <h3>My anal toy collection~</h3>
+          <p>
+-Heart anal plug <br>
+-Fox tail anal plug <br>
+-Big rose-shaped anal plug <br>
+-Mini vibrator <br>
+-Lush (anal) <br>
+-Dildo <br>
+-Two thick transparent pink toys <br>
+-Moving tentacle vibrator <br>
+-Glass magic wand </p>
+        </div>
+        <div class="toy-card">
+          <div class="toy-icon">☾</div>
+          <h3>My BDSM & spanking toys!</h3>
+          <p>-Nipple clamps <br>
+-Pink fluffy handcuffs <br>
+-Pink leather cuffs <br>
+-Pink blindfold <br>
+-Pink ball gag <br>
+-Pink leather mask <br>
+-Soft pink whip, wooden heart paddle, black leather paddle, long pink strap <br>
+-Riding crop! <br>
+-Peacock feather </p>
+        </div>
+        <div class="toy-card">
+          <div class="toy-icon">♤</div>
+          <h3>"I want to start a private session!"</h3>
+          <p>Before we agree to a private session, we can discuss your preferences and what you’d like to try. Once you’ve told me what you would like, I’ll let you know the prices and availability of each toy. So don’t hesitate to ask me what you’d like to try! ♡</p>
+        </div>
+        <div class="toy-card">
+          <div class="toy-icon">♧</div>
+          <h3>Feel free in private!</h3>
+          <p>Enjoy a private experience with no limits! You can explore your desires and fantasies in a safe and exciting environment. Don’t forget to follow me and like my photos and videos, and also contribute to the epic goal – that would really help me boost my page’s ranking and get it onto the front pages.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWS -->
+  <section id="shows" style="background: var(--bg-soft); border-top: 1px solid var(--border);">
+    <div class="container">
+      <div style="text-align: center;">
+        <span class="section-label">Let's have some fun!</span>
+        <h2 class="section-title">My Shows!</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="shows-list">
+        <div class="show-item">
+          <div class="show-price">8<span>tk / min</span></div>
+          <div>
+            <h3>Private Show! (included things)</h3>
+            <p>blowjob · handjob · foot fetish · spanking · dirty talk · oil · some flashing · positions of your choice. real moans and orgasms (if i'm using any toys).</p>
+          </div>
+        </div>
+
+        <div class="show-item">
+          <div class="show-price">12<span>tk / min</span></div>
+          <div>
+            <h3>First Exclusive Private Gift</h3>
+            <p>In our first private show, I'll give you <strong style="color: var(--rose-soft);">5 minutes free</strong> of Lush control. So we can start with a lot of intensity ^^ (and exclusive is only you and I, alone :P)</p>
+          </div>
+        </div>
+
+        <div class="show-item">
+          <div class="show-price">Live<span>goals</span></div>
+          <div>
+            <h3>Collective Goals</h3>
+            <p>We achieve goals together in a very naughty way. Every hour I’ll change my goals; I’ll start with some gentle ones and then move on to more naughty ones. Each tip brings us closer… and I give myself more. Objective: shared enjoyment and tasty rewards.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="special-box">
+        <h3>Do you want complete control?</h3>
+        <p>
+          Activate the Lovense control during the show and feel how my body responds to every tip and every command you give.<br> You can send tips via the public or private chat, or you can take control and I’ll react in real time. It’s a really intense and exciting experience!
+        </p>
+        <a href="#shows" class="btn btn-primary">Get started now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RULES -->
+  <section class="rules">
+    <div class="container">
+      <div style="text-align: center;">
+        <span class="section-label">Rules!</span>
+        <h2 class="section-title">A few mini-rules in my room</h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="rules-grid">
+        <div class="rule-card">
+          <h3>01 · Mutual respect</h3>
+          <p>Always treat each other with affection and respect.<br> Everything is best enjoyed when there is care and trust! Ask polite, be respectful, no aggressive behavior, don't pressure and let's keep it fun!</p>
+        </div>
+        <div class="rule-card">
+          <h3>02 · No recordings</h3>
+          <p>No recording or capturing of the show is allowed without my explicit consent. I protect my privacy and yours.</p>
+        </div>
+        <div class="rule-card">
+          <h3>03 · Clear boundaries</h3>
+          <p>If I don't like something or I'm not comfortable, or if I don't want to do any show, I'll say so with care. I also listen to your boundaries.</p>
+        </div>
+        <div class="rule-card">
+          <h3>04 · Tips & time</h3>
+          <p>Private shows are charged per minute. I have extras in my private shows; before starting, we'll discuss what you'd like to explore. Public tips help unlock special goals and rewards.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="name">Hirara</div>
+      <p>Cute · Your next obsession · All yours</p>
+      <div class="footer-ornament"></div>
+      <p style="font-size: 0.75rem; opacity: 0.7;">Bit about me! · For adults only · Come say hi and send me some wet and warm kisses! :P</p>
+    </div>
+  </footer>
+
+</body>
+</html>
